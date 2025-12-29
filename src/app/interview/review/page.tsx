@@ -2,13 +2,15 @@
 
 import { JSX } from 'react';
 import { useRouter } from 'next/navigation';
-import { Box, Button, Typography, Paper, LinearProgress } from '@mui/material';
+import { Box, Button, Typography, Paper } from '@mui/material';
 import {
   CheckCircle as CheckCircleIcon,
   TrendingUp as TrendingUpIcon,
   EmojiEvents as TrophyIcon,
 } from '@mui/icons-material';
 import { InterviewScorecard } from '../../../types/interview';
+import ScoreBreakdown from '../../../components/scorecard/ScoreBreakdown';
+import ImprovementPlan from '../../../components/scorecard/ImprovementPlan';
 
 /**
  * Mock scorecard data
@@ -35,27 +37,6 @@ const MOCK_SCORECARD: InterviewScorecard = {
 };
 
 /**
- * Score category definition
- */
-interface ScoreCategory {
-  label: string;
-  score: number;
-  maxScore: number;
-  color: string;
-}
-
-/**
- * Get score color based on percentage
- */
-const getScoreColor = (score: number, maxScore: number): string => {
-  const percentage = (score / maxScore) * 100;
-  if (percentage >= 80) return 'bg-green-500';
-  if (percentage >= 60) return 'bg-blue-500';
-  if (percentage >= 40) return 'bg-yellow-500';
-  return 'bg-red-500';
-};
-
-/**
  * Get overall performance level
  */
 const getPerformanceLevel = (finalScore: number, maxScore: number): string => {
@@ -67,81 +48,50 @@ const getPerformanceLevel = (finalScore: number, maxScore: number): string => {
 };
 
 /**
- * ScoreBar Component
- * Displays individual score with progress bar
- */
-function ScoreBar({ label, score, maxScore, color }: ScoreCategory): JSX.Element {
-  const percentage = (score / maxScore) * 100;
-
-  return (
-    <Box className="mb-6">
-      <Box className="flex justify-between items-center mb-2">
-        <Typography variant="body1" className="font-semibold text-gray-700">
-          {label}
-        </Typography>
-        <Typography variant="body1" className="font-bold text-gray-900">
-          {score}/{maxScore}
-        </Typography>
-      </Box>
-      <Box className="relative">
-        <LinearProgress
-          variant="determinate"
-          value={percentage}
-          className="h-3 rounded-full bg-gray-200"
-          sx={{
-            '& .MuiLinearProgress-bar': {
-              backgroundColor:
-                percentage >= 80
-                  ? '#22c55e'
-                  : percentage >= 60
-                  ? '#3b82f6'
-                  : percentage >= 40
-                  ? '#eab308'
-                  : '#ef4444',
-            },
-          }}
-        />
-      </Box>
-    </Box>
-  );
-}
-
-/**
  * Interview Review Screen Component
  * Displays interview performance scorecard and improvement suggestions
  */
 export default function InterviewReviewPage(): JSX.Element {
   const router = useRouter();
 
-  const scoreCategories: ScoreCategory[] = [
-    {
-      label: 'Communication',
-      score: MOCK_SCORECARD.communicationScore,
-      maxScore: 10,
-      color: getScoreColor(MOCK_SCORECARD.communicationScore, 10),
-    },
-    {
-      label: 'Domain Fit',
-      score: MOCK_SCORECARD.domainFitScore,
-      maxScore: 10,
-      color: getScoreColor(MOCK_SCORECARD.domainFitScore, 10),
-    },
-    {
-      label: 'Confidence',
-      score: MOCK_SCORECARD.confidenceScore,
-      maxScore: 10,
-      color: getScoreColor(MOCK_SCORECARD.confidenceScore, 10),
-    },
-    {
-      label: 'Answer Relevance',
-      score: MOCK_SCORECARD.relevanceScore,
-      maxScore: 10,
-      color: getScoreColor(MOCK_SCORECARD.relevanceScore, 10),
-    },
-  ];
-
   const maxFinalScore = 50;
   const performanceLevel = getPerformanceLevel(MOCK_SCORECARD.finalScore, maxFinalScore);
+
+  // Prepare improvement plan data
+  const strengths: string[] = [];
+  const weaknesses: string[] = [];
+  
+  // Categorize scores
+  if (MOCK_SCORECARD.communicationScore >= 8) {
+    strengths.push('Excellent communication skills');
+  } else if (MOCK_SCORECARD.communicationScore < 6) {
+    weaknesses.push('Communication could be improved');
+  }
+
+  if (MOCK_SCORECARD.confidenceScore >= 8) {
+    strengths.push('High confidence level throughout');
+  } else if (MOCK_SCORECARD.confidenceScore < 6) {
+    weaknesses.push('Confidence needs improvement');
+  }
+
+  if (MOCK_SCORECARD.domainFitScore >= 8) {
+    strengths.push('Strong domain knowledge');
+  } else if (MOCK_SCORECARD.domainFitScore < 6) {
+    weaknesses.push('Domain knowledge needs enhancement');
+  }
+
+  if (MOCK_SCORECARD.relevanceScore >= 8) {
+    strengths.push('Highly relevant and focused answers');
+  } else if (MOCK_SCORECARD.relevanceScore < 6) {
+    weaknesses.push('Answer relevance could be improved');
+  }
+
+  // Add filler word feedback
+  if (MOCK_SCORECARD.fillerWordCount < 5) {
+    strengths.push('Minimal use of filler words');
+  } else if (MOCK_SCORECARD.fillerWordCount > 15) {
+    weaknesses.push(`Too many filler words used (${MOCK_SCORECARD.fillerWordCount})`);
+  }
 
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 py-12 px-4">
@@ -174,20 +124,12 @@ export default function InterviewReviewPage(): JSX.Element {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Score Breakdown Section */}
-          <Paper elevation={2} className="p-6">
-            <Typography variant="h6" className="font-bold text-gray-800 mb-4">
-              Score Breakdown
-            </Typography>
-            {scoreCategories.map((category) => (
-              <ScoreBar
-                key={category.label}
-                label={category.label}
-                score={category.score}
-                maxScore={category.maxScore}
-                color={category.color}
-              />
-            ))}
-          </Paper>
+          <ScoreBreakdown
+            communicationScore={MOCK_SCORECARD.communicationScore}
+            domainFitScore={MOCK_SCORECARD.domainFitScore}
+            confidenceScore={MOCK_SCORECARD.confidenceScore}
+            relevanceScore={MOCK_SCORECARD.relevanceScore}
+          />
 
           {/* Key Insights Section */}
           <Paper elevation={2} className="p-6">
@@ -225,42 +167,11 @@ export default function InterviewReviewPage(): JSX.Element {
         </div>
 
         {/* Improvement Plan Section */}
-        <Paper elevation={2} className="p-6 mt-6">
-          <Typography variant="h6" className="font-bold text-gray-800 mb-4">
-            Improvement Plan
-          </Typography>
-          <Typography variant="body2" className="text-gray-600 mb-4">
-            Based on your performance, here are personalized recommendations to help you improve:
-          </Typography>
-          <ul className="space-y-3">
-            {MOCK_SCORECARD.improvementSuggestions.map((suggestion, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <Box className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center shrink-0 mt-1">
-                  <Typography variant="caption" className="font-bold">
-                    {index + 1}
-                  </Typography>
-                </Box>
-                <Typography variant="body2" className="text-gray-700 leading-relaxed">
-                  {suggestion}
-                </Typography>
-              </li>
-            ))}
-          </ul>
-
-          {/* Domain-Specific Recommendation */}
-          <Box className="bg-indigo-50 border border-indigo-200 rounded-lg p-4 mt-6">
-            <Typography variant="subtitle2" className="font-semibold text-indigo-900 mb-2">
-              Recommended Practice
-            </Typography>
-            <Typography variant="body2" className="text-gray-700">
-              Continue practicing with{' '}
-              <strong className="text-indigo-700 capitalize">
-                {MOCK_SCORECARD.domain.replace('-', ' ')}
-              </strong>{' '}
-              questions to build consistency and confidence in your responses.
-            </Typography>
-          </Box>
-        </Paper>
+        <ImprovementPlan
+          strengths={strengths}
+          weaknesses={weaknesses}
+          recommendations={MOCK_SCORECARD.improvementSuggestions}
+        />
 
         {/* Action Buttons */}
         <Box className="flex gap-4 justify-center mt-8">
