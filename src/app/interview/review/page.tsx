@@ -30,7 +30,7 @@ const MOCK_SCORECARD: InterviewScorecard = {
     'Take brief pauses before answering to organize thoughts',
     'Practice the STAR method for behavioral questions',
   ],
-  domain: 'behavioral',
+  domain: 'hr-behavioral',
   completedAt: Date.now(),
 };
 

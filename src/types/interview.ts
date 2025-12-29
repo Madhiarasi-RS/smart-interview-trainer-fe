@@ -2,11 +2,12 @@
  * Interview domain/field options
  */
 export type InterviewDomain = 
-  | 'software-engineering'
-  | 'data-science'
-  | 'product-management'
-  | 'system-design'
-  | 'behavioral';
+  | 'full-stack'
+  | 'cloud'
+  | 'mern-stack'
+  | 'ui-ux'
+  | 'qa'
+  | 'hr-behavioral';
 
 /**
  * Interview difficulty levels
@@ -16,7 +17,7 @@ export type InterviewDifficulty = 'easy' | 'medium' | 'hard';
 /**
  * Interview duration in minutes
  */
-export type InterviewDuration = 15 | 30 | 45 | 60;
+export type InterviewDuration = 15 | 30 | 60;
 
 /**
  * Interview setup configuration

@@ -30,29 +30,34 @@ import {
  */
 const DOMAIN_OPTIONS: DomainOption[] = [
   {
-    value: 'software-engineering',
-    label: 'Software Engineering',
-    description: 'Coding, algorithms, data structures',
+    value: 'full-stack',
+    label: 'Full Stack',
+    description: 'Frontend, backend, and database development',
   },
   {
-    value: 'data-science',
-    label: 'Data Science',
-    description: 'ML, statistics, data analysis',
+    value: 'cloud',
+    label: 'Cloud',
+    description: 'AWS, Azure, GCP, cloud architecture',
   },
   {
-    value: 'product-management',
-    label: 'Product Management',
-    description: 'Product design, strategy, metrics',
+    value: 'mern-stack',
+    label: 'MERN Stack',
+    description: 'MongoDB, Express, React, Node.js',
   },
   {
-    value: 'system-design',
-    label: 'System Design',
-    description: 'Architecture, scalability, design',
+    value: 'ui-ux',
+    label: 'UI/UX',
+    description: 'User interface and experience design',
   },
   {
-    value: 'behavioral',
-    label: 'Behavioral',
-    description: 'STAR method, soft skills, culture fit',
+    value: 'qa',
+    label: 'QA',
+    description: 'Quality assurance and testing',
+  },
+  {
+    value: 'hr-behavioral',
+    label: 'HR / Behavioral',
+    description: 'Soft skills, communication, culture fit',
   },
 ];
 
@@ -83,22 +88,17 @@ const DIFFICULTY_OPTIONS: DifficultyOption[] = [
 const DURATION_OPTIONS: DurationOption[] = [
   {
     value: 15,
-    label: '15 minutes',
+    label: '15 Minutes',
     description: 'Quick practice session',
   },
   {
     value: 30,
-    label: '30 minutes',
+    label: '30 Minutes',
     description: 'Standard interview length',
   },
   {
-    value: 45,
-    label: '45 minutes',
-    description: 'Extended practice',
-  },
-  {
     value: 60,
-    label: '60 minutes',
+    label: '1 Hour',
     description: 'Full interview simulation',
   },
 ];
@@ -139,11 +139,15 @@ export default function InterviewSetupPage(): JSX.Element {
     // TODO: Backend integration
     // - Send config to interview service
     // - Get interview session ID
-    // - Navigate to interview session
     console.log('Interview configuration:', config);
 
-    // Placeholder navigation
-    // router.push(`/interview/session?id=${sessionId}`);
+    // Navigate to interview session with setup data
+    const params = new URLSearchParams({
+      domain: config.domain,
+      difficulty: config.difficulty,
+      duration: config.duration.toString(),
+    });
+    router.push(`/interview/session?${params.toString()}`);
   };
 
   return (

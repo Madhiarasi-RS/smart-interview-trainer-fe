@@ -33,7 +33,7 @@ import RealtimeFeedback from '../../../components/feedback/RealtimeFeedback';
 const MOCK_QUESTION: InterviewQuestion = {
   id: 'q1',
   text: 'Tell me about a challenging technical problem you faced and how you solved it. What was your approach, and what did you learn from the experience?',
-  domain: 'behavioral',
+  domain: 'hr-behavioral',
   difficulty: 'medium',
 };
 
