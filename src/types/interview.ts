@@ -117,3 +117,16 @@ export interface InterviewScorecard {
   domain: InterviewDomain;
   completedAt: number;
 }
+
+/**
+ * Interview history item for dashboard
+ */
+export interface InterviewHistoryItem {
+  id: string;
+  domain: InterviewDomain;
+  difficulty: InterviewDifficulty;
+  duration: InterviewDuration;
+  finalScore: number;
+  maxScore: number;
+  completedAt: number;
+}
