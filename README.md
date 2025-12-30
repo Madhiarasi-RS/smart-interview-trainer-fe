@@ -9,6 +9,9 @@ This repository contains the frontend application for the Smart Interview Traine
 - Real-time behavioural feedback visualization via WebSockets
 - AI scorecard and analytics dashboards
 
+**Live Demo:** [Click here](https://smart-interview-trainer-fe.vercel.app/)
+
+
 ## Tech Stack
 - Next.js 14 (App Router)
 - TypeScript (strict mode)
