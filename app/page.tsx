@@ -54,26 +54,18 @@ export default function Home(): JSX.Element {
           </Typography>
           <Typography
             variant="h5"
-            className="text-gray-600 mb-8 max-w-2xl mx-auto"
+            className="text-gray-600 mb-4"
           >
             Master your interview skills with AI-powered real-time feedback and practice
           </Typography>
-          <Box className="flex gap-4 justify-center">
+          <Box className="flex justify-center mt-6">
             <Button
               variant="contained"
               size="large"
               onClick={() => router.push('/login')}
-              className="bg-blue-600 hover:bg-blue-700 px-8 py-3 text-lg normal-case"
+              className="bg-blue-600 hover:bg-blue-700 px-8 py-4 text-lg normal-case font-semibold"
             >
               Get Started
-            </Button>
-            <Button
-              variant="outlined"
-              size="large"
-              onClick={() => router.push('/interview/setup')}
-              className="border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 text-lg normal-case"
-            >
-              Try Demo
             </Button>
           </Box>
         </Box>

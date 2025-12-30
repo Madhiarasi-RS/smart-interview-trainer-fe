@@ -23,7 +23,7 @@ import {
   DomainOption,
   DifficultyOption,
   DurationOption,
-} from '../../../types/interview';
+} from '../../../src/types/interview';
 
 /**
  * Domain options configuration

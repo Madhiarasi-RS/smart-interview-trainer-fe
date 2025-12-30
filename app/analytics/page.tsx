@@ -11,10 +11,10 @@ import {
 } from '@mui/icons-material';
 import FillerWordAnalytics, {
   FillerWordData,
-} from '../../components/charts/FillerWordAnalytics';
+} from '../../src/components/charts/FillerWordAnalytics';
 import ImprovementTimeline, {
   TimelineData,
-} from '../../components/charts/ImprovementTimeline';
+} from '../../src/components/charts/ImprovementTimeline';
 
 /**
  * Mock filler word data

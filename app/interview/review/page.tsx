@@ -8,9 +8,9 @@ import {
   TrendingUp as TrendingUpIcon,
   EmojiEvents as TrophyIcon,
 } from '@mui/icons-material';
-import { InterviewScorecard } from '../../../types/interview';
-import ScoreBreakdown from '../../../components/scorecard/ScoreBreakdown';
-import ImprovementPlan from '../../../components/scorecard/ImprovementPlan';
+import { InterviewScorecard } from '../../../src/types/interview';
+import ScoreBreakdown from '../../../src/components/scorecard/ScoreBreakdown';
+import ImprovementPlan from '../../../src/components/scorecard/ImprovementPlan';
 
 /**
  * Mock scorecard data

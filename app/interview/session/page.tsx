@@ -22,9 +22,9 @@ import {
   InterviewQuestion,
   FeedbackMessage,
   FeedbackType,
-} from '../../../types/interview';
-import { SocketProvider, useSocket } from '../../../context/SocketContext';
-import RealtimeFeedback from '../../../components/feedback/RealtimeFeedback';
+} from '../../../src/types/interview';
+import { SocketProvider, useSocket } from '../../../src/context/SocketContext';
+import RealtimeFeedback from '../../../src/components/feedback/RealtimeFeedback';
 
 /**
  * Mock question data
@@ -223,9 +223,9 @@ function InterviewSessionContent(): JSX.Element {
   const handleStop = (): void => {
     setIsActive(false);
     // TODO: Submit interview session to backend
-    // Navigate to feedback/results page
+    // Navigate to review page
     console.log('Interview stopped. Elapsed time:', elapsedTime);
-    router.push('/dashboard');
+    router.push('/interview/review');
   };
 
   /**

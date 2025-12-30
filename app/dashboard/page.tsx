@@ -7,8 +7,9 @@ import {
   PlayArrow as PlayArrowIcon,
   CalendarToday as CalendarIcon,
   TrendingUp as TrendingUpIcon,
+  Person as PersonIcon,
 } from '@mui/icons-material';
-import { InterviewDomain } from '../../types/interview';
+import { InterviewDomain } from '../../src/types/interview';
 
 /**
  * Mock past interview data
@@ -145,13 +146,23 @@ export default function DashboardPage(): JSX.Element {
     <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100">
       <Container maxWidth="lg" className="py-12 px-4">
         {/* Welcome Section */}
-        <Box className="mb-12">
-          <Typography variant="h3" component="h1" className="font-bold text-gray-900 mb-2">
-            Welcome back, {MOCK_USER_NAME}!
-          </Typography>
-          <Typography variant="h6" className="text-gray-600">
-            Ready to practice your interview skills?
-          </Typography>
+        <Box className="mb-8 flex justify-between items-center">
+          <Box>
+            <Typography variant="h3" component="h1" className="font-bold text-gray-900 mb-2">
+              Welcome back, {MOCK_USER_NAME}!
+            </Typography>
+            <Typography variant="h6" className="text-gray-600">
+              Ready to practice your interview skills?
+            </Typography>
+          </Box>
+          <Button
+            variant="outlined"
+            startIcon={<PersonIcon />}
+            onClick={() => router.push('/profile')}
+            className="normal-case hidden md:flex"
+          >
+            My Profile
+          </Button>
         </Box>
 
         {/* Primary CTA Section */}
@@ -172,6 +183,44 @@ export default function DashboardPage(): JSX.Element {
             Get Started
           </Button>
         </Paper>
+
+        {/* Quick Actions */}
+        <Box className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+          <Paper
+            elevation={2}
+            className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+            onClick={() => router.push('/analytics')}
+          >
+            <Box className="flex items-center gap-4">
+              <TrendingUpIcon className="text-blue-600 text-4xl" />
+              <Box>
+                <Typography variant="h6" className="font-semibold text-gray-800">
+                  View Analytics
+                </Typography>
+                <Typography variant="body2" className="text-gray-600">
+                  Track your progress and performance metrics
+                </Typography>
+              </Box>
+            </Box>
+          </Paper>
+          <Paper
+            elevation={2}
+            className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+            onClick={() => router.push('/analytics/progress')}
+          >
+            <Box className="flex items-center gap-4">
+              <CalendarIcon className="text-green-600 text-4xl" />
+              <Box>
+                <Typography variant="h6" className="font-semibold text-gray-800">
+                  Progress Timeline
+                </Typography>
+                <Typography variant="body2" className="text-gray-600">
+                  View detailed progress by interview duration
+                </Typography>
+              </Box>
+            </Box>
+          </Paper>
+        </Box>
 
         {/* Recent Interviews Section */}
         <Box className="mb-8">
