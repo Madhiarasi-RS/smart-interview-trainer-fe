@@ -8,7 +8,9 @@ import {
   CalendarToday as CalendarIcon,
   TrendingUp as TrendingUpIcon,
   Person as PersonIcon,
+  Logout as LogoutIcon,
 } from '@mui/icons-material';
+import { useAuth } from '../../src/context/AuthContext';
 import { InterviewDomain } from '../../src/types/interview';
 
 /**
@@ -97,20 +99,20 @@ function InterviewHistoryItem({ interview, onClick }: InterviewHistoryItemProps)
   return (
     <Paper
       elevation={1}
-      className="p-4 hover:shadow-md transition-shadow cursor-pointer"
+      className="p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer rounded-lg border border-gray-100"
       onClick={onClick}
     >
       <Box className="flex items-center justify-between">
         <Box className="flex-1">
-          <Box className="flex items-center gap-3 mb-2">
-            <CalendarIcon className="text-gray-500 text-sm" />
-            <Typography variant="body2" className="text-gray-600">
+          <Box className="flex items-center gap-4 mb-2">
+            <CalendarIcon className="text-gray-500 text-base" />
+            <Typography variant="body2" className="text-gray-600 font-medium">
               {formatDate(interview.date)}
             </Typography>
             <Chip
               label={getDomainLabel(interview.domain)}
               size="small"
-              className="capitalize"
+              className="capitalize font-medium"
               color="primary"
               variant="outlined"
             />
@@ -135,6 +137,7 @@ function InterviewHistoryItem({ interview, onClick }: InterviewHistoryItemProps)
  */
 export default function DashboardPage(): JSX.Element {
   const router = useRouter();
+  const { user, logout } = useAuth();
 
   const handleInterviewClick = (interviewId: string): void => {
     // TODO: Pass interview ID when backend is integrated
@@ -142,62 +145,77 @@ export default function DashboardPage(): JSX.Element {
     router.push('/interview/review');
   };
 
+  const handleLogout = (): void => {
+    logout();
+    router.push('/');
+  };
+
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100">
-      <Container maxWidth="lg" className="py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <Container maxWidth="lg" className="py-16 px-4">
         {/* Welcome Section */}
-        <Box className="mb-8 flex justify-between items-center">
+        <Box className="mb-12 flex justify-between items-center">
           <Box>
-            <Typography variant="h3" component="h1" className="font-bold text-gray-900 mb-2">
+            <Typography variant="h3" component="h1" className="font-bold text-gray-900 mb-3 tracking-tight">
               Welcome back, {MOCK_USER_NAME}!
             </Typography>
-            <Typography variant="h6" className="text-gray-600">
+            <Typography variant="h6" className="text-gray-600 font-normal">
               Ready to practice your interview skills?
             </Typography>
           </Box>
-          <Button
-            variant="outlined"
-            startIcon={<PersonIcon />}
-            onClick={() => router.push('/profile')}
-            className="normal-case hidden md:flex"
-          >
-            My Profile
-          </Button>
+          <Box className="flex gap-3">
+            <Button
+              variant="outlined"
+              startIcon={<PersonIcon />}
+              onClick={() => router.push('/profile')}
+              className="normal-case transition-all duration-200 hover:shadow-md border-blue-600 text-blue-600 hover:bg-blue-50"
+            >
+              My Profile
+            </Button>
+            <Button
+              variant="outlined"
+              color="error"
+              startIcon={<LogoutIcon />}
+              onClick={handleLogout}
+              className="normal-case transition-all duration-200 hover:shadow-md"
+            >
+              Logout
+            </Button>
+          </Box>
         </Box>
 
         {/* Primary CTA Section */}
-        <Paper elevation={3} className="p-8 mb-12 text-center bg-linear-to-r from-blue-600 to-indigo-600 text-white">
-          <PlayArrowIcon className="text-7xl mb-4" />
-          <Typography variant="h4" className="font-bold mb-3">
+        <Paper elevation={3} className="p-10 mb-16 text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl shadow-xl">
+          <Typography variant="h3" className="font-bold tracking-tight mb-4">
             Start New Mock Interview
           </Typography>
-          <Typography variant="body1" className="mb-6 opacity-90">
+          <Typography variant="h6" className="mb-8 opacity-95 leading-relaxed">
             Practice with AI-powered real-time feedback
           </Typography>
           <Button
             variant="contained"
             size="large"
             onClick={() => router.push('/interview/setup')}
-            className="bg-white text-blue-600 hover:bg-gray-100 normal-case text-lg px-8 py-3 font-semibold"
+            className="bg-white text-blue-600 hover:bg-gray-100 normal-case text-lg px-10 py-6 font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
           >
-            Get Started
+            Start Interview
           </Button>
         </Paper>
 
         {/* Quick Actions */}
-        <Box className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+        <Box className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           <Paper
             elevation={2}
-            className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+            className="p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer rounded-lg border border-gray-100"
             onClick={() => router.push('/analytics')}
           >
-            <Box className="flex items-center gap-4">
-              <TrendingUpIcon className="text-blue-600 text-4xl" />
+            <Box className="flex items-center gap-5">
+              <TrendingUpIcon className="text-blue-600 text-5xl" />
               <Box>
-                <Typography variant="h6" className="font-semibold text-gray-800">
+                <Typography variant="h6" className="font-semibold text-gray-900 mb-2">
                   View Analytics
                 </Typography>
-                <Typography variant="body2" className="text-gray-600">
+                <Typography variant="body2" className="text-gray-600 leading-relaxed">
                   Track your progress and performance metrics
                 </Typography>
               </Box>
@@ -205,16 +223,16 @@ export default function DashboardPage(): JSX.Element {
           </Paper>
           <Paper
             elevation={2}
-            className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+            className="p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer rounded-lg border border-gray-100"
             onClick={() => router.push('/analytics/progress')}
           >
-            <Box className="flex items-center gap-4">
-              <CalendarIcon className="text-green-600 text-4xl" />
+            <Box className="flex items-center gap-5">
+              <CalendarIcon className="text-green-600 text-5xl" />
               <Box>
-                <Typography variant="h6" className="font-semibold text-gray-800">
+                <Typography variant="h6" className="font-semibold text-gray-900 mb-2">
                   Progress Timeline
                 </Typography>
-                <Typography variant="body2" className="text-gray-600">
+                <Typography variant="body2" className="text-gray-600 leading-relaxed">
                   View detailed progress by interview duration
                 </Typography>
               </Box>
@@ -224,9 +242,9 @@ export default function DashboardPage(): JSX.Element {
 
         {/* Recent Interviews Section */}
         <Box className="mb-8">
-          <Box className="flex items-center gap-2 mb-6">
+          <Box className="flex items-center gap-3 mb-8">
             <TrendingUpIcon className="text-gray-700 text-3xl" />
-            <Typography variant="h5" component="h2" className="font-bold text-gray-800">
+            <Typography variant="h5" component="h2" className="font-bold text-gray-900 tracking-tight">
               Recent Interviews
             </Typography>
           </Box>

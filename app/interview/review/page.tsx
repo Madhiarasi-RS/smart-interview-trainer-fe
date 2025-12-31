@@ -109,14 +109,14 @@ export default function InterviewReviewPage(): JSX.Element {
           </Typography>
 
           {/* Final Score Display */}
-          <Box className="bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-lg p-6 inline-block">
-            <Typography variant="h6" className="uppercase tracking-wide mb-2">
+          <Box className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg p-5 w-64 mx-auto mt-8">
+            <Typography variant="subtitle1" className="uppercase tracking-wide mb-2 text-sm">
               Final Score
             </Typography>
-            <Typography variant="h2" className="font-bold">
+            <Typography variant="h3" className="font-bold">
               {MOCK_SCORECARD.finalScore}/{maxFinalScore}
             </Typography>
-            <Typography variant="body1" className="mt-2 opacity-90">
+            <Typography variant="body2" className="mt-2 opacity-90">
               {performanceLevel}
             </Typography>
           </Box>

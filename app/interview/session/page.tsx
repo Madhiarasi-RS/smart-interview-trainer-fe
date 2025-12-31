@@ -287,17 +287,18 @@ function InterviewSessionContent(): JSX.Element {
             <Box className="flex gap-2">
               <IconButton
                 onClick={handlePauseResume}
-                className="bg-gray-700 hover:bg-gray-600 text-white"
                 size="small"
               >
-                {isPaused ? <PlayArrowIcon /> : <PauseIcon />}
+                {isPaused ? <PlayArrowIcon                 className="bg-gray-700 hover:bg-gray-600 text-white"
+/> : <PauseIcon                 className="bg-gray-700 hover:bg-gray-600 text-white"
+ />}
               </IconButton>
               <IconButton
                 onClick={handleStop}
-                className="bg-red-600 hover:bg-red-700 text-white"
                 size="small"
               >
-                <StopIcon />
+                <StopIcon className="bg-red-600 hover:bg-red-700 text-white"
+/>
               </IconButton>
             </Box>
           </Box>
